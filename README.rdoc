@@ -7,22 +7,30 @@ Things you may want to cover:
 
 * Ruby version
 
+ruby 2.2.1p85 (2015-02-26 revision 49769) [x86_64-darwin14]
+
 * System dependencies
+
+Rails 4.2.5
 
 * Configuration
 
+The following environment variables must be set:
+
+- FB_APP_ID
+- FB_APP_SECRET
+
 * Database creation
 
-* Database initialization
+rails db:migrate
 
 * How to run the test suite
 
-* Services (job queues, cache servers, search engines, etc.)
+- rake test: runs all unit, functional and integration tests.
+- rake test:units: runs all the unit tests.
+- rake test:functionals: runs all the functional tests.
+- rake test:integration: runs all the integration tests. Each one of these commands requires some time and they are not the best solution while developing a new feature or fixing a bug. In this circumstance we just want to have a quick feedback from the unit test of the code we are editing.
 
-* Deployment instructions
+* How to run the application
 
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+rails s
