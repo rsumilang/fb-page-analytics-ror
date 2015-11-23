@@ -29,12 +29,12 @@ ActiveRecord::Schema.define(version: 20151122221231) do
   create_table "fb_page_users", force: :cascade do |t|
     t.integer  "users_id"
     t.integer  "fb_page_id", limit: 8
-    t.integer  "user_id"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
   end
 
   add_index "fb_page_users", ["fb_page_id"], name: "index_fb_page_users_on_fb_page_id"
+  add_index "fb_page_users", ["users_id"], name: "index_fb_page_users_on_users_id"
 
   create_table "fb_pages", force: :cascade do |t|
     t.string   "name"

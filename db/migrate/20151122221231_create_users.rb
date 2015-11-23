@@ -44,7 +44,7 @@ class CreateUsers < ActiveRecord::Migration
       t.belongs_to :fb_page
 
       t.integer :fb_page_id, :limit => 8, index: true
-      t.integer :user_id
+      t.integer :users_id, index: true
 
       t.timestamps null: false
     end

@@ -38,7 +38,7 @@ class User < ActiveRecord::Base
       name: auth['info']['name'],
       email: auth['info']['email'],
       oauth_token: auth['credentials']['token'],
-      oauth_expires_at: auth['credentials']['expires_at']
+      oauth_expires_at: auth['credentials']['expires_at'] || 0 # @todo Sometimes returns nil and causes and error.
     )
   end
 
@@ -69,6 +69,26 @@ class User < ActiveRecord::Base
   rescue Koala::Facebook::APIError => e
     logger.info e.to_s
     nil
+  end
+
+
+  # Returns back facebook account pages I (the User) am an admin of.
+  #
+  # An example of returned data:
+  #
+  #   [{
+  #     "access_token"=>"...",
+  #     "category"=>"Computers/Technology",
+  #     "name"=>"Test",
+  #     "id"=>"510029472504391",
+  #     "perms"=>["ADMINISTER", "EDIT_PROFILE", "CREATE_CONTENT","MODERATE_CONTENT", "CREATE_ADS", "BASIC_ADMIN"]
+  #   }]
+  #
+  # @return Array ... of Hashe
+  def facebook_accounts
+    facebook do |fb|
+      fb.get_connection('me', 'accounts')
+    end
   end
 
 end
