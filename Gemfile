@@ -47,3 +47,6 @@ end
 
 # Omniauth for logging in
 gem 'omniauth-facebook'
+
+# Koala for Facebook Graph
+gem 'koala'
