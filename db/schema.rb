@@ -14,7 +14,7 @@
 ActiveRecord::Schema.define(version: 20151122221231) do
 
   create_table "fb_page_posts", force: :cascade do |t|
-    t.integer  "fb_page_id",       limit: 8
+    t.integer  "fb_page_id"
     t.integer  "fb_post_id",       limit: 8
     t.text     "message"
     t.integer  "share_count"
@@ -30,9 +30,9 @@ ActiveRecord::Schema.define(version: 20151122221231) do
 
   create_table "fb_page_users", force: :cascade do |t|
     t.integer  "users_id"
-    t.integer  "fb_page_id", limit: 8
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.integer  "fb_page_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_index "fb_page_users", ["fb_page_id", "users_id"], name: "index_fb_page_users_on_fb_page_id_and_users_id", unique: true
