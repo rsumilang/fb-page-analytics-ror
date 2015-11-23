@@ -5,9 +5,15 @@ class ApplicationController < ActionController::Base
 
   private
 
+  # Sets the current user in the controller we can find a matching user from the
+  # session information. Nil otherwise.
+  # @return User
   def current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
   end
 
+
+  # We'll need a way to access the current_user from within the templates.
   helper_method :current_user
+
 end

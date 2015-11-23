@@ -8,6 +8,13 @@ class User < ActiveRecord::Base
   validates :oauth_token, presence: true
   validates :oauth_expires_at, presence: true
 
+
+  # This is called from the `session_controller.create` method when a successful
+  # login has taken place.
+  #
+  # @param auth Omniauth response from login.
+  #
+  # @return User
   def self.sign_in_from_omniauth(auth)
     user = find_by(provider: auth['provider'], uid: auth['uid'])
     if user
@@ -17,6 +24,13 @@ class User < ActiveRecord::Base
     end
   end
 
+
+  # Called when an existing user was not found in the database. We'll be
+  # creating a new user in the database and storing their information.
+  #
+  # @param auth Omniauth response from login.
+  #
+  # @return User
   def self.create_user_from_omniauth(auth)
     create(
       provider: auth['provider'],
@@ -28,6 +42,14 @@ class User < ActiveRecord::Base
     )
   end
 
+
+  # Updates user name, email, and oauth information when logging in.
+  #
+  # @param user User object to update
+  #
+  # @param auth Authentication information returned by Omniauth
+  #
+  # @return User
   def self.update_user(user, auth)
     user.update(
       name: auth['info']['name'],
@@ -38,6 +60,9 @@ class User < ActiveRecord::Base
     user
   end
 
+
+  # Creates facebook instance variable and handles exceptions thrown by the API.
+  # This is useful by passing a "block" to be yielded.
   def facebook
     @facebook ||= Koala::Facebook::API.new(oauth_token)
     block_given? ? yield(@facebook) : @facebook
