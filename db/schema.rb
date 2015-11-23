@@ -26,6 +26,8 @@ ActiveRecord::Schema.define(version: 20151122221231) do
     t.datetime "updated_at",                 null: false
   end
 
+  add_index "fb_page_posts", ["fb_page_id", "fb_post_id"], name: "index_fb_page_posts_on_fb_page_id_and_fb_post_id", unique: true
+
   create_table "fb_page_users", force: :cascade do |t|
     t.integer  "users_id"
     t.integer  "fb_page_id", limit: 8
@@ -33,6 +35,7 @@ ActiveRecord::Schema.define(version: 20151122221231) do
     t.datetime "updated_at",           null: false
   end
 
+  add_index "fb_page_users", ["fb_page_id", "users_id"], name: "index_fb_page_users_on_fb_page_id_and_users_id", unique: true
   add_index "fb_page_users", ["fb_page_id"], name: "index_fb_page_users_on_fb_page_id"
   add_index "fb_page_users", ["users_id"], name: "index_fb_page_users_on_users_id"
 
@@ -44,7 +47,7 @@ ActiveRecord::Schema.define(version: 20151122221231) do
     t.datetime "updated_at",           null: false
   end
 
-  add_index "fb_pages", ["fb_page_id"], name: "index_fb_pages_on_fb_page_id"
+  add_index "fb_pages", ["fb_page_id"], name: "index_fb_pages_on_fb_page_id", unique: true
 
   create_table "users", force: :cascade do |t|
     t.string   "provider"
@@ -57,6 +60,7 @@ ActiveRecord::Schema.define(version: 20151122221231) do
     t.datetime "updated_at",       null: false
   end
 
+  add_index "users", ["provider", "uid"], name: "index_users_on_provider_and_uid", unique: true
   add_index "users", ["uid"], name: "index_users_on_uid"
 
 end

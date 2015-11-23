@@ -20,8 +20,12 @@ class User < ActiveRecord::Base
     if user
       update_user user, auth
     else
-      create_user_from_omniauth(auth)
+      user = create_user_from_omniauth(auth)
     end
+
+    FbPage.add_user_pages user
+
+    user
   end
 
 

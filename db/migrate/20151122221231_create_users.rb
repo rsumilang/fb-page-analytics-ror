@@ -1,7 +1,9 @@
 class CreateUsers < ActiveRecord::Migration
   def change
 
-
+    #
+    # USERS
+    #
     create_table :users do |t|
       t.string :provider
       t.string :uid, index: true
@@ -13,16 +15,26 @@ class CreateUsers < ActiveRecord::Migration
       t.timestamps null: false
     end
 
+    add_index :users, [:provider, :uid], :unique => true
 
+
+    #
+    # FB PAGES
+    #
     create_table :fb_pages, :fb_page_id => false do |t|
       t.string :name
-      t.integer :fb_page_id, :limit => 8, index: true
+      t.integer :fb_page_id, :limit => 8
       t.string :category
 
       t.timestamps null: false
     end
 
+    add_index :fb_pages, :fb_page_id, :unique => true
 
+
+    #
+    # FB PAGES POSTS
+    #
     create_table :fb_page_posts, :fb_page_id => false, :fb_post_id => false do |t|
       t.belongs_to :fb_page
 
@@ -38,7 +50,12 @@ class CreateUsers < ActiveRecord::Migration
       t.timestamps null: false
     end
 
+    add_index :fb_page_posts, [:fb_page_id, :fb_post_id], :unique => true
 
+
+    #
+    # FB PAGES USER
+    #
     create_table :fb_page_users, :fb_page_id => false do |t|
       t.belongs_to :users
       t.belongs_to :fb_page
@@ -48,6 +65,9 @@ class CreateUsers < ActiveRecord::Migration
 
       t.timestamps null: false
     end
+
+    add_index :fb_page_users, [:fb_page_id, :users_id], :unique => true
+
 
   end
 end
