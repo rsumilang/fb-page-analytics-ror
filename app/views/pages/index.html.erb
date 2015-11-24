@@ -1,2 +1,7 @@
-<h1>Pages#index</h1>
-<p>Find me in app/views/pages/index.html.erb</p>
+<h1>Pages</h1>
+<p>Select a page to view stats:</p>
+<ul>
+  <% @fb_pages.each do |page| %>
+    <li><%= link_to page['name'], controller: 'stats', action: 'index', id: page['id'] %></li>
+  <% end %>
+</ul>

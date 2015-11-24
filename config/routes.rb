@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get 'auth/:provider/callback', to: 'sessions#create'
   get 'home/profile'
   get 'pages', to: 'pages#index'
+  get 'stats/:id', to: 'stats#index'
 
   delete 'sign_out', to: 'sessions#destroy', as: 'sign_out'
 
