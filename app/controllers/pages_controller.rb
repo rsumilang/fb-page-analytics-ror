@@ -4,10 +4,7 @@ class PagesController < ApplicationController
   # Page handler
   def index
     sync_user_pages
-
-    logger.debug "Debugging current user"
-    #logger.debug current_user.fb_page
-
+    @fb_pages = current_user.fb_pages
   end
 
 

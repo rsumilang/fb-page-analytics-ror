@@ -1,7 +1,7 @@
 class FbPage < ActiveRecord::Base
-  has_many :fb_page_user, dependent: :destroy
-  has_many :fb_page_post, dependent: :destroy
-  has_many :user, through: :fb_page_user
+  has_many :fb_page_users, dependent: :destroy
+  has_many :fb_page_posts, dependent: :destroy
+  has_many :users, through: :fb_page_users
 
   validates :name, presence: true
   validates :fb_page_id, presence: true
