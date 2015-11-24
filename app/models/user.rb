@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  has_many :fb_page_user, dependent: :destroy
+  has_many :fb_page_user, dependent: :destroy, foreign_key: 'users_id'
   has_many :fb_page, through: :fb_page_user
 
   validates :name, presence: true
