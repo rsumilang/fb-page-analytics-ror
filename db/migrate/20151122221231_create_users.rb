@@ -35,11 +35,11 @@ class CreateUsers < ActiveRecord::Migration
     #
     # FB PAGES POSTS
     #
-    create_table :fb_page_posts, :fb_post_id => false do |t|
+    create_table :fb_page_posts do |t|
       t.belongs_to :fb_page
 
       t.integer :fb_page_id
-      t.integer :fb_post_id, :limit => 8
+      t.string :fb_post_id
       t.text :message
       t.integer :share_count
       t.integer :comment_count

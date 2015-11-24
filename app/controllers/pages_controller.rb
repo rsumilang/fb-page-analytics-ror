@@ -1,9 +1,10 @@
 class PagesController < ApplicationController
   before_action :set_auth
+  before_action :sync_user_pages
+
 
   # Page handler
   def index
-    sync_user_pages
     @fb_pages = current_user.fb_pages
     if @fb_pages.length === 1
       redirect_to controller: 'stats', action: 'index', id: @fb_pages.first['id']

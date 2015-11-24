@@ -13,7 +13,7 @@
 
 <% if current_user %>
   Signed in as: <%= current_user.name %> - <%= image_tag (@auth['info']['image']) %>
-  <%= link_to 'Sign Out', 'sign_out', method: :delete %>
+  <%= link_to 'Sign Out', '/sign_out', method: :delete %>
 <% else %>
   <%= link_to '/auth/facebook' do %>Facebook<% end %>
 <% end %>

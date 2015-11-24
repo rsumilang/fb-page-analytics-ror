@@ -15,15 +15,15 @@ ActiveRecord::Schema.define(version: 20151122221231) do
 
   create_table "fb_page_posts", force: :cascade do |t|
     t.integer  "fb_page_id"
-    t.integer  "fb_post_id",       limit: 8
+    t.string   "fb_post_id"
     t.text     "message"
     t.integer  "share_count"
     t.integer  "comment_count"
     t.integer  "like_count"
     t.integer  "impression_count"
     t.datetime "date_posted"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
   end
 
   add_index "fb_page_posts", ["fb_page_id", "fb_post_id"], name: "index_fb_page_posts_on_fb_page_id_and_fb_post_id", unique: true
