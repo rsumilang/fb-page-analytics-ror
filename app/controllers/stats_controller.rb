@@ -29,6 +29,10 @@ class StatsController < ApplicationController
         message: post['message']
       }
       FbPagePost.create payload
+
+      # Create jobs to update the meta information
+      fb_object_meta_worker = FbObjectMetaWorker.new current_user['oauth_token'], post['id']
+      fb_object_meta_worker.sync
     end
 
   end

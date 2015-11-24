@@ -88,7 +88,7 @@ class User < ActiveRecord::Base
   #     "perms"=>["ADMINISTER", "EDIT_PROFILE", "CREATE_CONTENT","MODERATE_CONTENT", "CREATE_ADS", "BASIC_ADMIN"]
   #   }]
   #
-  # @return Array ... of Hashe
+  # @return Array ... of Hash
   def facebook_accounts
     facebook do |fb|
       fb.get_connection('me', 'accounts')

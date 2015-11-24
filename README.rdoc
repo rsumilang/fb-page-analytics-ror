@@ -33,4 +33,10 @@ rails db:migrate
 
 * How to run the application
 
-rails s
+Run the application server:
+
+    rails s
+
+Run the job worker:
+
+    rake jobs:work

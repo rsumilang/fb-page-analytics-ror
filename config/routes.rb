@@ -8,6 +8,8 @@ Rails.application.routes.draw do
 
   delete 'sign_out', to: 'sessions#destroy', as: 'sign_out'
 
+  match '/delayed_job' => DelayedJobWeb, :anchor => false, via: [:get, :post]
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

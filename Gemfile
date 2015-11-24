@@ -50,3 +50,8 @@ gem 'omniauth-facebook'
 
 # Koala for Facebook Graph
 gem 'koala'
+
+# Required for processing jobs
+gem 'daemons'
+gem 'delayed_job_active_record'
+gem 'delayed_job_web'
