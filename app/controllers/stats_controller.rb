@@ -7,18 +7,24 @@ class StatsController < ApplicationController
   end
 
 
-  private
+
+  protected
+
 
 
   def set_auth
     @auth = session[:omniauth] if session[:omniauth]
   end
 
+  # This method starts to sync all the posts with the database
   def sync_posts
     @fb_page = FbPage.find(params[:id])
+    since_timestamp = get_last_post_timestamp @fb_page['id']
+
     feed_results = nil
     current_user.facebook do |fb|
-      feed_results = fb.get_connection(@fb_page['fb_page_id'], 'feed')
+      payload = since_timestamp ? {:since => since_timestamp} : nil
+      feed_results = fb.get_connection(@fb_page['fb_page_id'], 'feed', payload)
     end
 
     # Loop through results and add them to db
@@ -37,5 +43,18 @@ class StatsController < ApplicationController
     end
 
   end
+
+
+  # Figure out when the last post was that we saved and return back the timestamp
+  # or return back nil
+  def get_last_post_timestamp(fb_page_id)
+    post = FbPagePost.where(['fb_page_id = ?', fb_page_id]).order('date_posted DESC').limit(1)
+    if post.length === 1
+      post.first['date_posted'].to_i
+    else
+      nil
+    end
+  end
+
 
 end
