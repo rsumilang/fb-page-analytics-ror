@@ -3,7 +3,8 @@ class StatsController < ApplicationController
   before_action :sync_posts
 
   def index
-
+    @top5posts = FbPagePost.topPosts @fb_page['id'], 5
+    @allPosts = get_all_posts params[:sort]
   end
 
 
@@ -16,6 +17,29 @@ class StatsController < ApplicationController
     @auth = session[:omniauth] if session[:omniauth]
   end
 
+
+  def get_all_posts(sort)
+    case sort
+      when 'id'
+        FbPagePost.where(fb_page_id: @fb_page['id']).order(id: :desc)
+      when 'message'
+        FbPagePost.where(fb_page_id: @fb_page['id']).order(message: :desc)
+      when 'likes'
+        FbPagePost.where(fb_page_id: @fb_page['id']).order(like_count: :desc)
+      when 'comments'
+        FbPagePost.where(fb_page_id: @fb_page['id']).order(comment_count: :desc)
+      when 'impressions'
+        FbPagePost.where(fb_page_id: @fb_page['id']).order(impression_count: :desc)
+      when 'shares'
+        FbPagePost.where(fb_page_id: @fb_page['id']).order(share_count: :desc)
+      when 'posted'
+        FbPagePost.where(fb_page_id: @fb_page['id']).order(date_posted: :desc)
+      else
+        FbPagePost.where(fb_page_id: @fb_page['id'])
+    end
+  end
+
+
   # This method starts to sync all the posts with the database
   def sync_posts
     @fb_page = FbPage.find(params[:id])
@@ -23,7 +47,7 @@ class StatsController < ApplicationController
 
     feed_results = nil
     current_user.facebook do |fb|
-      payload = since_timestamp ? {:since => since_timestamp} : nil
+      payload = since_timestamp ? {:since => since_timestamp} : {}
       feed_results = fb.get_connection(@fb_page['fb_page_id'], 'feed', payload)
     end
 

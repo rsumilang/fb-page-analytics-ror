@@ -1,2 +1,48 @@
-<h1>Stats#index</h1>
-<p>Find me in app/views/stats/index.html.erb</p>
+<h1>Stats for <%= @fb_page['name'] %> </h1>
+
+<p>
+    Note: Workers are started to pull in statistical information such as number
+    of likes from each post. A page reload (or two) might needed to see accurate
+    results from initial load.
+</p>
+
+
+<h2>Top 5 Posts</h2>
+
+<p>Last 5 posts sorted in order of likes and comments for the sake of example.</p>
+
+<ol>
+    <% @top5posts.each do |post| %>
+    <li>[likes: <%= post['like_count'] %>] [comments: <%= post['comment_count'] %>] <%= post['message'] %></li>
+    <% end %>
+</ol>
+
+
+<h2>All Posts</h2>
+
+<table>
+    <thead>
+        <tr>
+            <td><%= link_to 'id', controller: 'stats', action: 'index', id: @fb_page['id'], sort: :id %></td>
+            <td><%= link_to 'message', controller: 'stats', action: 'index', id: @fb_page['id'], sort: :message %></td>
+            <td><%= link_to 'likes', controller: 'stats', action: 'index', id: @fb_page['id'], sort: :likes %></td>
+            <td><%= link_to 'comments', controller: 'stats', action: 'index', id: @fb_page['id'], sort: :comments %></td>
+            <td><%= link_to 'impressions', controller: 'stats', action: 'index', id: @fb_page['id'], sort: :impressions %></td>
+            <td><%= link_to 'share_count', controller: 'stats', action: 'index', id: @fb_page['id'], sort: :shares %></td>
+            <td><%= link_to 'posted', controller: 'stats', action: 'index', id: @fb_page['id'], sort: :posted %></td>
+        </tr>
+    </thead>
+    <tbody>
+        <% @allPosts.each do |post| %>
+        <tr>
+            <td><%= post['id'] %></td>
+            <td><%= post['message'] %></td>
+            <td><%= post['like_count'] %></td>
+            <td><%= post['comment_count'] %></td>
+            <td><%= post['impression_count'] %></td>
+            <td><%= post['share_count'] %></td>
+            <td><%= post['date_posted'] %></td>
+        </tr>
+        <% end %>
+    </tbody>
+</table>
