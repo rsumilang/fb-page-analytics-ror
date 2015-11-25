@@ -26,7 +26,8 @@ class StatsController < ApplicationController
       payload = {
         fb_page_id: @fb_page['id'],
         fb_post_id: post['id'],
-        message: post['message']
+        message: post['message'],
+        date_posted: post['created_time']
       }
       FbPagePost.create payload
 
