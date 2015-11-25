@@ -22,7 +22,7 @@ The following environment variables must be set:
 
 * Database creation
 
-rails db:migrate
+rake db:migrate
 
 * How to run the test suite
 
