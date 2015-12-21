@@ -3,7 +3,7 @@
 This README would normally document whatever steps are necessary to get the
 application up and running.
 
-Things you may want to cover:
+This source code is accompanied by this blog post: http://richardsumilang.com/programming/ruby/ror/facebook-page-analytics-ror/
 
 * Ruby version
 
@@ -40,3 +40,12 @@ Run the application server:
 Run the job worker:
 
     rake jobs:work
+
+== License
+
+fb-page-analytics-ror by Richard Sumilang is licensed under a Creative Commons
+Attribution 4.0 International License. Based on a work at
+https://github.com/rsumilang/fb-page-analytics-ror.
+
+https://i.creativecommons.org/l/by/4.0/88x31.png
+http://creativecommons.org/licenses/by/4.0/
